@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface TasksManager {
     // Получение списка всех задач
-    ArrayList<Task> getTasks();
+    List<Task> getTasks();
 
-    ArrayList<Epic> getEpics();
+    List<Epic> getEpics();
 
-    ArrayList<Subtask> getSubtasks();
+    List<Subtask> getSubtasks();
 
     // Получение списка всех подзадач определённого эпика
-    ArrayList<Subtask> getEpicSubtasks(int epicId);
+    List<Subtask> getEpicSubtasks(int epicId);
 
     // Удаление всех задач
     void deleteTasks();

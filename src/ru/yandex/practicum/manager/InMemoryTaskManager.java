@@ -8,34 +8,38 @@ import ru.yandex.practicum.tasks.Task;
 import java.util.*;
 
 public class InMemoryTaskManager implements TasksManager {
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private final Map<Integer, Task> tasks = new HashMap<>();
+    private final Map<Integer, Epic> epics = new HashMap<>();
+    private final Map<Integer, Subtask> subtasks = new HashMap<>();
     private int generatorId = 0;
 
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
+    private final HistoryManager historyManager;
+
+    public InMemoryTaskManager(HistoryManager historyManager) {
+        this.historyManager = historyManager;
+    }
 
     // Получение списка всех задач
     @Override
-    public ArrayList<Task> getTasks() {
+    public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
     }
 
     @Override
-    public ArrayList<Epic> getEpics() {
+    public List<Epic> getEpics() {
         return new ArrayList<>(epics.values());
     }
 
     @Override
-    public ArrayList<Subtask> getSubtasks() {
+    public List<Subtask> getSubtasks() {
         return new ArrayList<>(subtasks.values());
     }
 
     // Получение списка всех подзадач определённого эпика
     @Override
-    public ArrayList<Subtask> getEpicSubtasks(int epicId) {
+    public List<Subtask> getEpicSubtasks(int epicId) {
         Epic epic = epics.get(epicId);
-        ArrayList<Subtask> epicSubtaskArrayList = new ArrayList<>();
+        List<Subtask> epicSubtaskArrayList = new ArrayList<>();
         for (Integer id : epic.getSubtaskId()) {
             epicSubtaskArrayList.add(subtasks.get(id));
         }

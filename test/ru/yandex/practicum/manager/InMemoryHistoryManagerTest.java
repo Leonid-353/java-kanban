@@ -93,5 +93,4 @@ class InMemoryHistoryManagerTest {
         assertEquals(historyManager.getMaxHistoryLength(), historyManager.getHistory().size());
         assertEquals(historyManager.getHistory().getLast(), epic);
     }
-
 }

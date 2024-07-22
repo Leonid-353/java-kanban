@@ -1,5 +1,6 @@
 package ru.yandex.practicum.tasks;
 
+import ru.yandex.practicum.manager.HistoryManager;
 import ru.yandex.practicum.manager.InMemoryTaskManager;
 import ru.yandex.practicum.manager.Managers;
 import ru.yandex.practicum.manager.TasksManager;
