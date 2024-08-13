@@ -3,16 +3,15 @@ package ru.yandex.practicum.manager;
 import ru.yandex.practicum.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
+    private final Map<Integer, Node> nodeMap = new HashMap<>();
     private Node head;
     private Node tail;
-
-    private final Map<Integer, Node> nodeMap = new HashMap<>();
 
     @Override
     public void add(Task task) {
