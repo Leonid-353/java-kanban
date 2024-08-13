@@ -12,7 +12,7 @@ public interface HistoryManager {
 
     List<Task> getHistory();
 
-    Object getHead();
+    Node getHead();
 
-    Object getTail();
+    Node getTail();
 }
