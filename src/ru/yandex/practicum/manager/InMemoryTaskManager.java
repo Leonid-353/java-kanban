@@ -11,9 +11,8 @@ public class InMemoryTaskManager implements TasksManager {
     private final Map<Integer, Task> tasks = new HashMap<>();
     private final Map<Integer, Epic> epics = new HashMap<>();
     private final Map<Integer, Subtask> subtasks = new HashMap<>();
-    private int generatorId = 0;
-
     private final HistoryManager historyManager;
+    private int generatorId = 0;
 
     public InMemoryTaskManager(HistoryManager historyManager) {
         this.historyManager = historyManager;
@@ -49,7 +48,7 @@ public class InMemoryTaskManager implements TasksManager {
     // Удаление всех задач
     @Override
     public void deleteTasks() {
-        for (Map.Entry<Integer,Task> entry : tasks.entrySet()) {
+        for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
             historyManager.remove(entry.getValue().getId());
         }
         tasks.clear();
@@ -57,7 +56,7 @@ public class InMemoryTaskManager implements TasksManager {
 
     @Override
     public void deleteEpics() {
-        for (Map.Entry<Integer,Epic> entry : epics.entrySet()) {
+        for (Map.Entry<Integer, Epic> entry : epics.entrySet()) {
             historyManager.remove(entry.getValue().getId());
             for (Integer id : entry.getValue().getSubtaskId()) {
                 historyManager.remove(id);
