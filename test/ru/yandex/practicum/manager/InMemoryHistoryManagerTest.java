@@ -9,7 +9,8 @@ import ru.yandex.practicum.tasks.Task;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class InMemoryHistoryManagerTest {
 
@@ -40,8 +41,6 @@ class InMemoryHistoryManagerTest {
         List<Task> history = historyManager.getHistory();
         assertNotNull(history, "История не пустая.");
         assertEquals(1, history.size(), "История не пустая.");
-        assertNotNull(historyManager.getHead());
-        assertNotNull(historyManager.getTail());
 
         Task task1 = new Task(taskId, "Test addNewTask", "Test addNewTask description", "DONE");
 
@@ -56,7 +55,6 @@ class InMemoryHistoryManagerTest {
         historyManager.add(task2);
         history = historyManager.getHistory();
         assertEquals(2, history.size(), "История не пустая");
-        assertNotEquals(historyManager.getHead(), historyManager.getTail());
     }
 
     @Test

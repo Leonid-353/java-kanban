@@ -80,12 +80,4 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
         return historyTasks;
     }
-
-    public Node getTail() {
-        return tail;
-    }
-
-    public Node getHead() {
-        return head;
-    }
 }
