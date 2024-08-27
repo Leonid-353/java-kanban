@@ -7,6 +7,7 @@ public class Task {
     protected String name;
     protected String description;
     protected Status status;
+    protected TaskType taskType = TaskType.TASK;
 
     public Task(int id, String name, String description, String status) {
         this.id = id;
@@ -55,6 +56,14 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getEpicId() {
+        return -1;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     @Override

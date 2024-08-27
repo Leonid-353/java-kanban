@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class Epic extends Task {
 
+    protected TaskType taskType = TaskType.EPIC;
     protected List<Integer> subtaskId = new ArrayList<>();
 
     public Epic(int id, String name, String description, String status) {
@@ -35,6 +36,11 @@ public class Epic extends Task {
 
     public void removeSubtaskId(int id) {
         subtaskId.remove(Integer.valueOf(id));
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     @Override

@@ -1,68 +1,76 @@
 package ru.yandex.practicum.tasks;
 
-import ru.yandex.practicum.manager.Managers;
-import ru.yandex.practicum.manager.TasksManager;
+import ru.yandex.practicum.manager.FileBackedTaskManager;
+
+import java.io.File;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        TasksManager manager = Managers.getDefault();
+        File file = new File("C:\\Users\\leoni\\IdeaProjects\\java-kanban\\src\\" +
+                "ru\\yandex\\practicum\\resourses\\TaskManager.csv");
+
+        FileBackedTaskManager taskManager = new FileBackedTaskManager(file);
 
         // Создание
         Task task1 = new Task("Задача 1", "Описание задачи 1", "NEW");
         Task task2 = new Task("Задача 2", "Описание задачи 2", "IN_PROGRESS");
-        final int taskId1 = manager.addNewTask(task1);
-        final int taskId2 = manager.addNewTask(task2);
+        final int taskId1 = taskManager.addNewTask(task1);
+        final int taskId2 = taskManager.addNewTask(task2);
         Task task3 = new Task(taskId1 - 1, "Задача 3", "Описание задачи 3", "DONE");
-        final int taskId3 = manager.addNewTask(task3);
+        final int taskId3 = taskManager.addNewTask(task3);
 
         Epic epic1 = new Epic("Эпик 1", "Описание эпика 1", "NEW");
         Epic epic2 = new Epic("Эпик 2", "Описание эпика 2", "IN_PROGRESS");
-        final int epicId1 = manager.addNewEpic(epic1);
-        final int epicId2 = manager.addNewEpic(epic2);
+        final int epicId1 = taskManager.addNewEpic(epic1);
+        final int epicId2 = taskManager.addNewEpic(epic2);
 
         Subtask subtask1 = new Subtask("Подзадача 1-1", "Описание подзадачи 1-1", "NEW", epicId1);
-        Subtask subtask2 = new Subtask("Подзадача 2-1", "Описание подзадачи 2-1", "IN_PROGRESS", epicId1);
+        Subtask subtask2 = new Subtask("Подзадача 2-1",
+                "Описание подзадачи 2-1", "IN_PROGRESS", epicId1);
         Subtask subtask3 = new Subtask("Подзадача 3-1", "Описание подзадачи 3-1", "NEW", epicId1);
         Subtask subtask4 = new Subtask("Подзадача 3-2", "Описание подзадачи 3-2", "NEW", epicId2);
-        final Integer subtaskId1 = manager.addNewSubtask(subtask1);
-        final Integer subtaskId2 = manager.addNewSubtask(subtask2);
-        final Integer subtaskId3 = manager.addNewSubtask(subtask3);
-        final Integer subtaskId4 = manager.addNewSubtask(subtask4);
+        final Integer subtaskId1 = taskManager.addNewSubtask(subtask1);
+        final Integer subtaskId2 = taskManager.addNewSubtask(subtask2);
+        final Integer subtaskId3 = taskManager.addNewSubtask(subtask3);
+        final Integer subtaskId4 = taskManager.addNewSubtask(subtask4);
+
+        FileBackedTaskManager taskManager1 = FileBackedTaskManager.loadFromFile(file);
+        System.out.println(taskManager.equals(taskManager1));
 
         //История
-        manager.getTask(taskId1);
-        manager.getTask(taskId1);
-        manager.getTask(taskId2);
-        manager.getTask(taskId3);
-        manager.updateTask(new Task(taskId1, "Задача 1", "Описание задачи 1", "DONE"));
-        manager.getTask(taskId1);
-        manager.getEpic(epicId1);
-        manager.getEpic(epicId2);
-        manager.getSubtask(subtaskId1);
-        manager.getSubtask(subtaskId2);
-        manager.getSubtask(subtaskId3);
-        manager.getSubtask(subtaskId4);
-        for (Task task : manager.getHistory()) {
+        taskManager1.getTask(taskId1);
+        taskManager1.getTask(taskId1);
+        taskManager1.getTask(taskId2);
+        taskManager1.getTask(taskId3);
+        taskManager1.updateTask(new Task(taskId1, "Задача 1", "Описание задачи 1", "DONE"));
+        taskManager1.getTask(taskId1);
+        taskManager1.getEpic(epicId1);
+        taskManager1.getEpic(epicId2);
+        taskManager1.getSubtask(subtaskId1);
+        taskManager1.getSubtask(subtaskId2);
+        taskManager1.getSubtask(subtaskId3);
+        taskManager1.getSubtask(subtaskId4);
+        for (Task task : taskManager1.getHistory()) {
             System.out.println(task);
         }
 
         // Вывод
-        for (Epic epicPrint : manager.getEpics()) {
+        for (Epic epicPrint : taskManager1.getEpics()) {
             System.out.println(epicPrint.toString());
         }
-        for (Task taskPrint : manager.getTasks()) {
+        for (Task taskPrint : taskManager1.getTasks()) {
             System.out.println(taskPrint.toString());
         }
-        for (Subtask subtaskPrint : manager.getSubtasks()) {
+        for (Subtask subtaskPrint : taskManager1.getSubtasks()) {
             System.out.println(subtaskPrint.toString());
         }
         System.out.println("----------");
 
         // Удаление
-        manager.deleteSubtasks();
-        for (Task task : manager.getHistory()) {
+        taskManager1.deleteSubtasks();
+        for (Task task : taskManager1.getHistory()) {
             System.out.println(task);
         }
     }

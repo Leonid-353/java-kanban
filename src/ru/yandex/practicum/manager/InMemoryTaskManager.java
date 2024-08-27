@@ -8,10 +8,11 @@ import ru.yandex.practicum.tasks.Task;
 import java.util.*;
 
 public class InMemoryTaskManager implements TasksManager {
-    private final Map<Integer, Task> tasks = new HashMap<>();
-    private final Map<Integer, Epic> epics = new HashMap<>();
-    private final Map<Integer, Subtask> subtasks = new HashMap<>();
+    protected final Map<Integer, Task> tasks = new HashMap<>();
+    protected final Map<Integer, Epic> epics = new HashMap<>();
+    protected final Map<Integer, Subtask> subtasks = new HashMap<>();
     private final HistoryManager historyManager;
+
     private int generatorId = 0;
 
     public InMemoryTaskManager(HistoryManager historyManager) {
@@ -19,6 +20,7 @@ public class InMemoryTaskManager implements TasksManager {
     }
 
     // Получение списка всех задач
+
     @Override
     public List<Task> getTasks() {
         return new ArrayList<>(tasks.values());
@@ -35,6 +37,7 @@ public class InMemoryTaskManager implements TasksManager {
     }
 
     // Получение списка всех подзадач определённого эпика
+
     @Override
     public List<Subtask> getEpicSubtasks(int epicId) {
         Epic epic = epics.get(epicId);
@@ -44,8 +47,8 @@ public class InMemoryTaskManager implements TasksManager {
         }
         return epicSubtaskArrayList;
     }
-
     // Удаление всех задач
+
     @Override
     public void deleteTasks() {
         for (Map.Entry<Integer, Task> entry : tasks.entrySet()) {
@@ -79,6 +82,7 @@ public class InMemoryTaskManager implements TasksManager {
     }
 
     // Получение по идентификатору
+
     @Override
     public Task getTask(int id) {
         final Task task = tasks.get(id);
@@ -101,6 +105,7 @@ public class InMemoryTaskManager implements TasksManager {
     }
 
     // Создание
+
     @Override
     public int addNewTask(Task task) {
         task.setId(++generatorId);
@@ -134,6 +139,7 @@ public class InMemoryTaskManager implements TasksManager {
     }
 
     // Обновление
+
     @Override
     public void updateTask(Task task) {
         if (tasks.containsKey(task.getId())) {
@@ -167,6 +173,7 @@ public class InMemoryTaskManager implements TasksManager {
     }
 
     // Удаление по идентификатору
+
     @Override
     public void deleteTask(int taskId) {
         tasks.remove(taskId);
@@ -214,6 +221,14 @@ public class InMemoryTaskManager implements TasksManager {
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
+    }
+
+    public int getGeneratorId() {
+        return generatorId;
+    }
+
+    protected void setGeneratorId(int generatorId) {
+        this.generatorId = generatorId;
     }
 
     @Override
