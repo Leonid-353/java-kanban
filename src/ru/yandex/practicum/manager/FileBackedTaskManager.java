@@ -6,7 +6,6 @@ import ru.yandex.practicum.tasks.Task;
 import ru.yandex.practicum.tasks.TaskType;
 
 import java.io.*;
-import java.util.Objects;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
@@ -70,42 +69,57 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     //Добавление
     @Override
     public int addNewTask(Task task) {
-        super.addNewTask(task);
-        save();
-        return task.getId();
+        if (task != null) {
+            super.addNewTask(task);
+            save();
+            return task.getId();
+        }
+        return -1;
     }
 
     @Override
     public int addNewEpic(Epic epic) {
-        super.addNewEpic(epic);
-        save();
-        return epic.getId();
+        if (epic != null) {
+            super.addNewEpic(epic);
+            save();
+            return epic.getId();
+        }
+        return -1;
     }
 
     @Override
     public Integer addNewSubtask(Subtask subtask) {
-        super.addNewSubtask(subtask);
-        save();
-        return subtask.getId();
+        if (subtask != null) {
+            super.addNewSubtask(subtask);
+            save();
+            return subtask.getId();
+        }
+        return -1;
     }
 
     //Обновление
     @Override
     public void updateTask(Task task) {
-        super.updateTask(task);
-        save();
+        if (task != null) {
+            super.updateTask(task);
+            save();
+        }
     }
 
     @Override
     public void updateEpic(Epic epic) {
-        super.updateEpic(epic);
-        save();
+        if (epic != null) {
+            super.updateEpic(epic);
+            save();
+        }
     }
 
     @Override
     public void updateSubtask(Subtask subtask) {
-        super.updateSubtask(subtask);
-        save();
+        if (subtask != null) {
+            super.updateSubtask(subtask);
+            save();
+        }
     }
 
     //Удаление по идентификатору
@@ -144,31 +158,5 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void deleteSubtasks() {
         super.deleteSubtasks();
         save();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FileBackedTaskManager manager = (FileBackedTaskManager) o;
-        return file == manager.file &&
-                Objects.equals(tasks, manager.tasks) &&
-                Objects.equals(epics, manager.epics) &&
-                Objects.equals(subtasks, manager.subtasks);
-    }
-
-    @Override
-    public String toString() {
-        return "FileBackedTaskManager{" +
-                "file=" + file +
-                ", tasks=" + tasks +
-                ", epics=" + epics +
-                ", subtasks=" + subtasks +
-                '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), file);
     }
 }
