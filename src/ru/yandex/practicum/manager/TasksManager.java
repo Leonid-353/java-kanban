@@ -32,7 +32,7 @@ public interface TasksManager {
     Subtask getSubtask(int id);
 
     // Создание
-    int addNewTask(Task task);
+    int addNewTask(Task task) throws ManagerSaveException;
 
     int addNewEpic(Epic epic);
 

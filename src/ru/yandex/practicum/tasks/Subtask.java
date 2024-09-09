@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Subtask extends Task {
 
+    protected TaskType taskType = TaskType.SUBTASK;
     protected int epicId;
 
     public Subtask(int id, String name, String description, String status, int epicId) {
@@ -16,8 +17,14 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    @Override
     public int getEpicId() {
         return epicId;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return taskType;
     }
 
     @Override
