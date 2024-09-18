@@ -1,5 +1,6 @@
 package ru.yandex.practicum.tasks;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Subtask extends Task {
@@ -7,13 +8,25 @@ public class Subtask extends Task {
     protected TaskType taskType = TaskType.SUBTASK;
     protected int epicId;
 
+    public Subtask(String name, String description, String status, int epicId) {
+        super(name, description, status);
+        this.epicId = epicId;
+    }
+
     public Subtask(int id, String name, String description, String status, int epicId) {
         super(id, name, description, status);
         this.epicId = epicId;
     }
 
-    public Subtask(String name, String description, String status, int epicId) {
-        super(name, description, status);
+    public Subtask(String name, String description, String status,
+                   long duration, LocalDateTime startTime, int epicId) {
+        super(name, description, status, duration, startTime);
+        this.epicId = epicId;
+    }
+
+    public Subtask(int id, String name, String description, String status,
+                   long duration, LocalDateTime startTime, int epicId) {
+        super(id, name, description, status, duration, startTime);
         this.epicId = epicId;
     }
 
@@ -35,6 +48,9 @@ public class Subtask extends Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", endTime=" + getEndTime() +
                 '}';
     }
 
@@ -48,7 +64,10 @@ public class Subtask extends Task {
                 Objects.equals(name, subtask.name) &&
                 Objects.equals(description, subtask.description) &&
                 status == subtask.status &&
-                epicId == subtask.epicId;
+                epicId == subtask.epicId &&
+                Objects.equals(startTime, subtask.startTime) &&
+                Objects.equals(duration, subtask.duration) &&
+                Objects.equals(getEndTime(), subtask.getEndTime());
     }
 
     @Override
