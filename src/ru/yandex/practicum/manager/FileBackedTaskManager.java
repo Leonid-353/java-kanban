@@ -23,8 +23,12 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
             while (reader.ready()) {
                 Task task = CSVTaskFormat.taskFromString(reader.readLine());
                 if (task != null) {
-                    taskManager.addTask(task);
-                    generatorId++;
+                    try {
+                        taskManager.addTask(task);
+                        generatorId++;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
             }
             taskManager.setGeneratorId(generatorId);
@@ -36,7 +40,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     private void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write("id,type,name,status,description,epic,");
+            writer.write("id,type,name,status,description,startTime,duration,endTime,epic,");
             writer.newLine();
             for (int i = 1; i <= getGeneratorId(); i++) {
                 if (tasks.containsKey(i)) {
@@ -58,11 +62,14 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     private void addTask(Task task) {
         if (task.getTaskType().equals(TaskType.TASK)) {
             tasks.put(task.getId(), task);
+            add(task);
         } else if (task.getTaskType().equals(TaskType.EPIC)) {
             epics.put(task.getId(), (Epic) task);
         } else if (task.getTaskType().equals(TaskType.SUBTASK)) {
             subtasks.put(task.getId(), (Subtask) task);
             epics.get(task.getEpicId()).addSubtaskId(task.getId());
+            updateEpicTime(epics.get(task.getEpicId()));
+            add(task);
         }
     }
 

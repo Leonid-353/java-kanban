@@ -1,5 +1,7 @@
 package ru.yandex.practicum.tasks;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,13 +10,14 @@ public class Epic extends Task {
 
     protected TaskType taskType = TaskType.EPIC;
     protected List<Integer> subtaskId = new ArrayList<>();
-
-    public Epic(int id, String name, String description, String status) {
-        super(id, name, description, status);
-    }
+    private LocalDateTime endTime;
 
     public Epic(String name, String description, String status) {
         super(name, description, status);
+    }
+
+    public Epic(int id, String name, String description, String status) {
+        super(id, name, description, status);
     }
 
     @Override
@@ -43,6 +46,23 @@ public class Epic extends Task {
         return taskType;
     }
 
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    @Override
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
     @Override
     public String toString() {
         return "Epic{" +
@@ -51,6 +71,9 @@ public class Epic extends Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", endTime=" + getEndTime() +
                 '}';
     }
 
@@ -64,7 +87,10 @@ public class Epic extends Task {
                 Objects.equals(name, epic.name) &&
                 Objects.equals(description, epic.description) &&
                 status == epic.status &&
-                Objects.equals(subtaskId, epic.subtaskId);
+                Objects.equals(subtaskId, epic.subtaskId) &&
+                Objects.equals(startTime, epic.startTime) &&
+                Objects.equals(duration, epic.duration) &&
+                Objects.equals(getEndTime(), epic.getEndTime());
     }
 
     @Override

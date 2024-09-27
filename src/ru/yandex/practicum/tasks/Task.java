@@ -1,5 +1,7 @@
 package ru.yandex.practicum.tasks;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -8,18 +10,41 @@ public class Task {
     protected String description;
     protected Status status;
     protected TaskType taskType = TaskType.TASK;
+    protected Duration duration;
+    protected LocalDateTime startTime;
+
+    public Task(String name, String description, String status) {
+        this.name = name;
+        this.description = description;
+        this.status = Status.valueOf(status);
+        this.duration = null;
+        this.startTime = null;
+    }
 
     public Task(int id, String name, String description, String status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.status = Status.valueOf(status);
+        this.duration = null;
+        this.startTime = null;
     }
 
-    public Task(String name, String description, String status) {
+    public Task(String name, String description, String status, long duration, LocalDateTime startTime) {
         this.name = name;
         this.description = description;
         this.status = Status.valueOf(status);
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = startTime;
+    }
+
+    public Task(int id, String name, String description, String status, long duration, LocalDateTime startTime) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = Status.valueOf(status);
+        this.duration = Duration.ofMinutes(duration);
+        this.startTime = startTime;
     }
 
     public boolean isEpic() {
@@ -66,6 +91,21 @@ public class Task {
         return taskType;
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        if (duration == null || startTime == null) {
+            return null;
+        }
+        return startTime.plus(duration);
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -73,6 +113,9 @@ public class Task {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
+                ", startTime=" + startTime +
+                ", duration=" + duration +
+                ", endTime=" + getEndTime() +
                 '}';
     }
 
@@ -84,7 +127,10 @@ public class Task {
         return id == task.id &&
                 Objects.equals(name, task.name) &&
                 Objects.equals(description, task.description) &&
-                status == task.status;
+                status == task.status &&
+                Objects.equals(startTime, task.startTime) &&
+                Objects.equals(duration, task.duration) &&
+                Objects.equals(getEndTime(), task.getEndTime());
     }
 
     @Override
