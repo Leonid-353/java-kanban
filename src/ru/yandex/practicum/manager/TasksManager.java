@@ -53,4 +53,12 @@ public interface TasksManager {
     void deleteSubtask(int subtaskId);
 
     List<Task> getHistory();
+
+    List<Task> getPrioritizedTasks();
+
+    boolean isContainedInTasks(int taskId);
+
+    boolean isContainedInEpics(int taskId);
+
+    boolean isContainedInSubtasks(int taskId);
 }

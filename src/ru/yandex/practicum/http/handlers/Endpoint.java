@@ -1,0 +1,30 @@
+package ru.yandex.practicum.http.handlers;
+
+public enum Endpoint {
+    GET_TASK,
+    GET_TASKS,
+    POST_ADDTASK,
+    POST_UPDATETASK,
+    DELETE_TASK,
+    DELETE_TASKS,
+
+    GET_SUBTASK,
+    GET_SUBTASKS,
+    POST_ADDSUBTASK,
+    POST_UPDATESUBTASK,
+    DELETE_SUBTASK,
+    DELETE_SUBTASKS,
+
+    GET_EPIC,
+    GET_EPICS,
+    GET_EPICSUBTASKS,
+    POST_ADDEPIC,
+    POST_UPDATEEPIC,
+    DELETE_EPIC,
+    DELETE_EPICS,
+
+    GET_HISTORY,
+    GET_PRIORITIZED,
+
+    UNKNOWN
+}

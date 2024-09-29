@@ -6,23 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static ru.yandex.practicum.tasks.TaskType.EPIC;
+
 public class Epic extends Task {
 
-    protected TaskType taskType = TaskType.EPIC;
     protected List<Integer> subtaskId = new ArrayList<>();
     private LocalDateTime endTime;
 
     public Epic(String name, String description, String status) {
         super(name, description, status);
+        this.taskType = EPIC;
     }
 
     public Epic(int id, String name, String description, String status) {
         super(id, name, description, status);
+        this.taskType = EPIC;
     }
 
     @Override
     public boolean isEpic() {
         return true;
+    }
+
+    public boolean subtaskIdIsEmpty() {
+        return subtaskId.isEmpty();
     }
 
     public void addSubtaskId(int id) {
@@ -33,17 +40,16 @@ public class Epic extends Task {
         return subtaskId;
     }
 
+    public void setSubtaskId(List<Integer> subtaskId) {
+        this.subtaskId = subtaskId;
+    }
+
     public void cleanSubtaskId() {
         subtaskId.clear();
     }
 
     public void removeSubtaskId(int id) {
         subtaskId.remove(Integer.valueOf(id));
-    }
-
-    @Override
-    public TaskType getTaskType() {
-        return taskType;
     }
 
     public void setStartTime(LocalDateTime startTime) {

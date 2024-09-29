@@ -6,6 +6,7 @@ import ru.yandex.practicum.tasks.Task;
 import ru.yandex.practicum.tasks.TaskType;
 
 import java.io.*;
+import java.util.List;
 
 public class FileBackedTaskManager extends InMemoryTaskManager {
     private final File file;
@@ -54,7 +55,8 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
                     writer.newLine();
                 }
             }
-        } catch (IOException exception) {
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             throw new ManagerSaveException("Ошибка записи в файл.", exception);
         }
     }
@@ -165,5 +167,17 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void deleteSubtasks() {
         super.deleteSubtasks();
         save();
+    }
+
+    //История
+    @Override
+    public List<Task> getHistory() {
+        return super.getHistory();
+    }
+
+    //Приоритет
+    @Override
+    public List<Task> getPrioritizedTasks() {
+        return super.getPrioritizedTasks();
     }
 }

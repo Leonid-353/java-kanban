@@ -1,22 +1,32 @@
 package ru.yandex.practicum.tasks;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static ru.yandex.practicum.tasks.TaskType.TASK;
+
 public class Task {
+
+    protected Duration duration;
+    protected LocalDateTime startTime;
     protected int id;
     protected String name;
     protected String description;
+
+    @SerializedName("status")
     protected Status status;
-    protected TaskType taskType = TaskType.TASK;
-    protected Duration duration;
-    protected LocalDateTime startTime;
+
+    protected TaskType taskType;
+
 
     public Task(String name, String description, String status) {
         this.name = name;
         this.description = description;
         this.status = Status.valueOf(status);
+        this.taskType = TASK;
         this.duration = null;
         this.startTime = null;
     }
@@ -26,6 +36,7 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = Status.valueOf(status);
+        this.taskType = TASK;
         this.duration = null;
         this.startTime = null;
     }
@@ -34,6 +45,7 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = Status.valueOf(status);
+        this.taskType = TASK;
         this.duration = Duration.ofMinutes(duration);
         this.startTime = startTime;
     }
@@ -43,6 +55,7 @@ public class Task {
         this.name = name;
         this.description = description;
         this.status = Status.valueOf(status);
+        this.taskType = TASK;
         this.duration = Duration.ofMinutes(duration);
         this.startTime = startTime;
     }
@@ -89,6 +102,10 @@ public class Task {
 
     public TaskType getTaskType() {
         return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 
     public Duration getDuration() {
