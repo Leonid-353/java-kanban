@@ -1,43 +1,46 @@
 package ru.yandex.practicum.tasks;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import static ru.yandex.practicum.tasks.TaskType.SUBTASK;
+
 public class Subtask extends Task {
 
-    protected TaskType taskType = TaskType.SUBTASK;
+    @SerializedName("epicId")
     protected int epicId;
 
     public Subtask(String name, String description, String status, int epicId) {
         super(name, description, status);
+        this.taskType = SUBTASK;
         this.epicId = epicId;
     }
 
     public Subtask(int id, String name, String description, String status, int epicId) {
         super(id, name, description, status);
+        this.taskType = SUBTASK;
         this.epicId = epicId;
     }
 
     public Subtask(String name, String description, String status,
                    long duration, LocalDateTime startTime, int epicId) {
         super(name, description, status, duration, startTime);
+        this.taskType = SUBTASK;
         this.epicId = epicId;
     }
 
     public Subtask(int id, String name, String description, String status,
                    long duration, LocalDateTime startTime, int epicId) {
         super(id, name, description, status, duration, startTime);
+        this.taskType = SUBTASK;
         this.epicId = epicId;
     }
 
     @Override
     public int getEpicId() {
         return epicId;
-    }
-
-    @Override
-    public TaskType getTaskType() {
-        return taskType;
     }
 
     @Override
