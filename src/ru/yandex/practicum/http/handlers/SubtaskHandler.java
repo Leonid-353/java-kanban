@@ -143,7 +143,7 @@ public class SubtaskHandler extends BaseHttpHandler implements HttpHandler {
                 taskManager.deleteSubtasks();
                 sendText(exchange, "Все подзадачи удалены.");
             }
-            case UNKNOWN -> sendHasIllegal(exchange, "Такого эндпоинта не существует");
+            case UNKNOWN -> sendMethodNotAllowed(exchange, "Такого эндпоинта не существует");
 
         }
     }

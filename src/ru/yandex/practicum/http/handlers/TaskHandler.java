@@ -129,7 +129,7 @@ public class TaskHandler extends BaseHttpHandler implements HttpHandler {
                 taskManager.deleteTasks();
                 sendText(exchange, "Все задачи удалены.");
             }
-            case UNKNOWN -> sendHasIllegal(exchange, "Такого эндпоинта не существует");
+            case UNKNOWN -> sendMethodNotAllowed(exchange, "Такого эндпоинта не существует");
         }
     }
 

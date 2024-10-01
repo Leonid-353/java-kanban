@@ -1,2 +1,4 @@
 id,type,name,status,description,startTime,duration,endTime,epic,
-1,EPIC,Test 1,NEW,Testing epic 1,null,null,null,
+1,TASK,Test addNewTask,NEW,Test addNewTask description,null,null,null,
+2,EPIC,Epic addNewEpic,NEW,Test addNewEpic description,null,null,null,
+3,SUBTASK,Subtask addNewSubtask,NEW,Test addNewSubtask description,null,null,null,2,

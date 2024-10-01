@@ -30,7 +30,7 @@ public class HistoryHandler extends BaseHttpHandler implements HttpHandler {
                     sendHasIllegal(exchange, exception.getMessage());
                 }
             }
-            case UNKNOWN -> sendHasIllegal(exchange, "Такого эндпоинта не существует");
+            case UNKNOWN -> sendMethodNotAllowed(exchange, "Такого эндпоинта не существует");
 
         }
     }

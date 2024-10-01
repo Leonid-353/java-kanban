@@ -144,7 +144,7 @@ public class EpicHandler extends BaseHttpHandler implements HttpHandler {
                 taskManager.deleteEpics();
                 sendText(exchange, "Все задачи удалены.");
             }
-            case UNKNOWN -> sendHasIllegal(exchange, "Такого эндпоинта не существует");
+            case UNKNOWN -> sendMethodNotAllowed(exchange, "Такого эндпоинта не существует");
 
         }
     }
